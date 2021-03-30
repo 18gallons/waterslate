@@ -11,8 +11,6 @@ from adafruit_seesaw.seesaw import Seesaw
 
 from analogio import AnalogOut
 
-from digitalio import DigitalInOut, Direction
-
 i2c_bus = busio.I2C(SCL, SDA)
 
 # This is the plant sensor
@@ -27,7 +25,7 @@ motor = AnalogOut(board.A0)
 
 # Define our functions
 def turn_on_led(color):
-    led.brightness = 1.0
+    led.brightness = 0.5
     led[0] = color
 
 def turn_off_led():
