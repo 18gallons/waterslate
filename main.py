@@ -32,17 +32,20 @@ def turn_off_led():
     led.brightness = 0.0
 
 def turn_on_pump():
-    print("pump on start")
-    motor.value = 65535
-    print("pump on end")
+    global loops_since_last_ran
+    if loops_since_last_ran > 180:
+        motor.value = 65535
+        time.sleep(15)
+        loops_since_last_ran = 0
+
 def turn_off_pump():
-    print("pump off start")
     motor.value = 0
-    print("pump off end")
-def delay():
-    time.sleep(1.5)
-# Declare desired moisture level
-DESIRED_MOISTURE = 400
+
+# Declare desired moisture level- for my particular plant, this is 480
+DESIRED_MOISTURE = 480
+
+# set time_since_last_ran to 180 so that it can water whenever it wants on start
+loops_since_last_ran = 180
 
 # The loop
 while True:
@@ -54,12 +57,12 @@ while True:
         turn_on_led(color=(255, 0, 0))
         print("moisture: " + str(moisture))
         turn_on_pump()
-        time.sleep(5)
         turn_off_pump()
-        delay()
     else:
         print("moisture: " + str(moisture))
         turn_off_led()
 
     #this sleep function is so that it does not spam the output with an obscene amount of readings
     time.sleep(1)
+    loops_since_last_ran += 1
+    print(loops_since_last_ran)
