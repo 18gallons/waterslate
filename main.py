@@ -41,8 +41,8 @@ def turn_off_pump():
     print("pump off end")
 def delay():
     time.sleep(1.5)
-# Declare desired moisture level
-DESIRED_MOISTURE = 400
+# Declare desired moisture level- for my particular plant, this is 480
+DESIRED_MOISTURE = 480
 
 # The loop
 while True:
