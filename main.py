@@ -9,7 +9,9 @@ from board import SCL, SDA
 
 from adafruit_seesaw.seesaw import Seesaw
 
-from digitalio import DigitalInOut, Direction, Pull
+from analogio import AnalogOut
+
+from digitalio import DigitalInOut, Direction
 
 i2c_bus = busio.I2C(SCL, SDA)
 
@@ -21,8 +23,7 @@ led = neopixel.NeoPixel(board.NEOPIXEL, 1)
 led.brightness = 1.0
 
 #This is our pump
-motor = DigitalInOut(board.A0)
-motor.direction = Direction.OUTPUT
+motor = AnalogOut(board.A0)
 
 # Define our functions
 def turn_on_led(color):
@@ -33,15 +34,17 @@ def turn_off_led():
     led.brightness = 0.0
 
 def turn_on_pump():
-    print("pump on")
-
+    print("pump on start")
+    motor.value = 65535
+    print("pump on end")
 def turn_off_pump():
-    print("pump off")
-
+    print("pump off start")
+    motor.value = 0
+    print("pump off end")
 def delay():
-    time.sleep(5)
+    time.sleep(1.5)
 # Declare desired moisture level
-DESIRED_MOISTURE = 500
+DESIRED_MOISTURE = 400
 
 # The loop
 while True:
