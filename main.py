@@ -23,6 +23,8 @@ led.brightness = 1.0
 #This is our pump
 motor = AnalogOut(board.A0)
 
+start = time.time()
+
 # Define our functions
 def turn_on_led(color):
     led.brightness = 0.5
@@ -63,6 +65,7 @@ while True:
         turn_off_led()
 
     #this sleep function is so that it does not spam the output with an obscene amount of readings
-    time.sleep(1)
-    loops_since_last_ran += 1
-    print(loops_since_last_ran)
+    time.sleep(600)
+    loops_since_last_ran += 180
+    print("loops: ", loops_since_last_ran)
+    print("seconds since start: ", time.time() - start)
